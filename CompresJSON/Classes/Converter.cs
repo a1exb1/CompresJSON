@@ -1,8 +1,9 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Text;
-//using System.Web;
+using System.Web;
 
 namespace CompresJSON
 {
@@ -19,6 +20,12 @@ namespace CompresJSON
         {
             UTF8Encoding encoding = new UTF8Encoding();
             return encoding.GetString(bytes);
+        }
+
+        public static Dictionary<string, string> QueryStringToDictionary(string str)
+        {
+            NameValueCollection nvc = HttpUtility.ParseQueryString(str);
+            return Tools.ToDictionary<string, string>(nvc);
         }
 
     }

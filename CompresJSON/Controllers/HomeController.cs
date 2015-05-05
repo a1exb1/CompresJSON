@@ -9,6 +9,8 @@ namespace CompresJSON.Controllers
     public class HomeController : Controller
     {
         // GET: Home
+
+        [CompressResult]
         public JsonResult Index()
         {
             var rc = new Dictionary<string, object>();
@@ -25,9 +27,37 @@ namespace CompresJSON.Controllers
             rc[test2.encodingMethod.ToString()] = test2.encodedOutput;
 
             rc["decode1"] = Compressor.Decompress(test1).decompressedOutput;
-            rc["decode2"] = Compressor.Decompress(test2).decompressedOutput;
+            //rc["decode2"] = Compressor.Decompress(test2).decompressedOutput;
 
             return Json(rc, JsonRequestBehavior.AllowGet);
+        }
+
+        [CompressResult]
+        public JsonResult compressWithFilter()
+        {
+            Dictionary<string, object> rc = new Dictionary<string, object>();
+
+            for (int i = 0; i < 10000; i++)
+            {
+                rc[i.ToString()] = "askdljfaklsdjfklsafjkaklsafljk";
+            }
+
+            return Json(rc, JsonRequestBehavior.AllowGet);
+        }
+
+        [CompressResult]
+        public JsonResult compressManually(string str)
+        {
+            var result = Compressor.Compress(str, CompressionMethod.LZ77, EncodingMethod.ASCII);
+
+            return Json(result.encodedOutput, JsonRequestBehavior.AllowGet);
+        }
+
+        [Decompress]
+        public JsonResult decompress(string str)
+        {
+
+            return Json(str);
         }
     }
 }

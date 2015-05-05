@@ -49,21 +49,20 @@ namespace CompresJSON
             {
                 case EncodingMethod.None:
                     break;
+
                 case EncodingMethod.ASCII:
 
                     rc = Encoding.ASCII.GetBytes(str);
-
                     break;
+
                 case EncodingMethod.Base64:
 
                     rc = Convert.FromBase64String(str);
-
                     break;
 
                 case EncodingMethod.UTF8:
 
                     rc = Encoding.UTF8.GetBytes(str);
-
                     break;
 
                 default:

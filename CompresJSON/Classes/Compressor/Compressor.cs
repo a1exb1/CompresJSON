@@ -10,18 +10,18 @@ namespace CompresJSON
     {
         public static CompressedResult Compress(string str)
         {
-            byte[] dataBytes = CompressorDefaults.encoder.GetBytes(str);
+            byte[] dataBytes = CompresJSONDefaults.encoder.GetBytes(str);
             byte[] compressedData = Converter.StringToBytes("");
 
-            var compressionMethod = CompressorDefaults.compressionMethod;
-            var encodingMethod = CompressorDefaults.encodingMethod;
+            var compressionMethod = CompresJSONDefaults.compressionMethod;
+            var encodingMethod = CompresJSONDefaults.encodingMethod;
 
             return Compress(str, compressionMethod, encodingMethod);
         }
 
         public static CompressedResult Compress(string str, CompressionMethod compressionMethod, EncodingMethod encodingMethod)
         {
-            byte[] dataBytes = CompressorDefaults.encoder.GetBytes(str);
+            byte[] dataBytes = CompresJSONDefaults.encoder.GetBytes(str);
             byte[] compressedData = compressData(dataBytes, compressionMethod);
 
             var result = new CompressedResult();
@@ -57,13 +57,11 @@ namespace CompresJSON
                 case CompressionMethod.GZip:
 
                     decompressedData = GZip.Decompress(data);
-
                     break;
 
                 case CompressionMethod.LZ77:
 
                     decompressedData = LZ77.Decompress(data);
-
                     break;
 
                 default: break;
@@ -81,16 +79,15 @@ namespace CompresJSON
                 case CompressionMethod.GZip:
 
                     compressedData = GZip.Compress(data);
-
                     break;
 
                 case CompressionMethod.LZ77:
 
                     compressedData = LZ77.Compress(data);
-
                     break;
 
-                default: break;
+                default: 
+                    break;
             }
 
             return compressedData;
